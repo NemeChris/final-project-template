@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Log In</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+        <link href="../../styles/login.css" type="text/css" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    </head>
+    <body>
+        <div class="super-holder">
+            <div class="main-container">
+                <div class="topMsg">
+                    <p>SIGN IN TO YOUR ACCOUNT</p>
+                </div>
+                <div class="inputArea">
+                    <form id="log-in">
+                        <p>
+                            <input type="text" id="userName" name="userName" placeholder="Enter username"/>
+                        </p>
+                        <p>
+                            <input type="password" id="passWord" name="passWord" placeholder="Enter password" />
+                        </p>
+                        <button>SIGN IN</button>
+                        <br/>
+                    </form>
+                    <p class="footer">Not Registered? <a href="./createAccount.html">Create an account</a></p>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            ("#log-in").on('submit', function(e){
+                e.preventDefault();
+                let userName = $('#userName').val();
+                let passWord = $('#passWord').val();
+                const userData = {userName, passWord};
+
+                $.ajax({
+                    url: `http://localhost/login`,
+                    type: "POST",
+                    dataType: "json",
+                    data: userData,
+                    success: function(userPage){
+                        //logs the person into their account
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>

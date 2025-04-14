@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <!-- remember to route relative to index.php  -->
+        <script type="text/javascript" src="../../js/homepage.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/styles/homepage.css"/>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    </head>
+
+    <body>
+        <div class="head">
+            <h1>Null Blog</h1>
+        </div>
+        <hr/>
+        <div class="nav-bar">
+            <div class="in-nav">Home</div>
+            <div class="in-nav"><a href="./assets/views/main/createBlog.html">Create</a></div>
+            <div class="in-nav">My Posts</div>
+        </div>
+        <hr/>
+        <div id="top-container">
+            <div id="top-post">
+                <div id="top-post-title">
+                    <!-- Big Title to Check And Be Modified Looks Ok -->
+                </div>
+                <div id="top-post-description">
+                    <!-- This essay is about what it means to build a website.
+                    Increasing word count just to tests the boundaries of this thing. -->
+                </div>
+            </div>
+        </div>
+        <hr id="line-below-top"/>
+
+        <div id="homepage-posts">
+            <div class="regular-post">
+                <div class="homepage-post-title">
+                    Big Title to Check And Be Modified Looks Ok
+                </div>
+                <div class="homepage-post-description">
+                    This essay is about what it means to build a website.
+                    Increasing word count just to tests the boundaries of this thing.
+                </div>
+            </div>
+            <hr/>
+
+            <div class="regular-post">
+                <div class="homepage-post-title">
+                    Big Title to Check And Be Modified Looks Ok
+                </div>
+                <div class="homepage-post-description">
+                    This essay is about what it means to build a website.
+                    Increasing word count just to tests the boundaries of this thing.
+                </div>
+            </div>
+            <hr/>
+
+            <div class="regular-post">
+                <div class="homepage-post-title">
+                    Big Title to Check And Be Modified Looks Ok
+                </div>
+                <div class="homepage-post-description">
+                    This essay is about what it means to build a website.
+                    Increasing word count just to tests the boundaries of this thing.
+                </div>
+            </div>
+            <hr/>
+        </div>
+
+        <form>
+            <input type="submit" value="See all >" id="See-All"/>
+        </form>
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    url: `http://localhost/api`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        //console.log(data);
+                        if (data){
+                            $('#top-post-title').append(`
+                                ${data[0].title}
+                            `);
+                            
+                            $('#top-post-description').append(`
+                                ${data[0].description}
+                            `);
+                        } 
+                    }
+                });
+            })
+
+            $('#top-post').on('click', function(){
+                // reverse engineer
+                // you want to use window.replace to redirect
+                // for that, you need id of the post
+                //you can get the details of a post if you have the title 
+                const postTitle = $("#top-post-title").text().trim();
+                let myData = {
+                    postTitle
+                };
+                $.ajax({
+                    url: `http://localhost/clickPost`,
+                    type: "GET",
+                    dataType: "json",
+                    data: myData,
+                    success: function(data){
+                        //use homework 10 code to add link to all posts
+                        //for each
+                        //<a href="/viewPost/${id}"
+                        console.log("success");
+                        let urlID = data[0]['id'];
+                        console.log(urlID);
+			            let relURL = "/viewPost/" + urlID;
+			            window.location.replace(relURL);
+                    },
+
+                    error: function(xhr, status, error) {
+                        console.log("Error occurred:");
+                        console.log("Status: " + status);
+                        console.log("Error: " + error);
+                        console.log(xhr.responseText);
+                    }
+                });
+            })
+
+
+        </script>
+    </body>
+</html>
+

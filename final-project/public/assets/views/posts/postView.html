@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Game Details</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <style>
+            #test{
+                color: red;
+            }
+        </style>
+        <!-- <link rel="stylesheet" type="text/css" href="../../assets/styles/games-view.css" /> -->
+    </head>
+    <body>
+        <div class="detail-container">
+            Second Test To make Sure
+        </div>
+        <script>
+            $(document).ready(function(){
+                const urlArray = window.location.pathname.split("/");
+                console.log(urlArray);
+                const id = urlArray[2];
+                function htmlDecode(input) {
+                    var doc = new DOMParser().parseFromString(input, "text/html");
+                    return doc.documentElement.textContent;
+                }
+                $.ajax({
+                    url: `http://localhost/display/${id}`,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        //console.log(data);
+                        if (data) {
+                            $('.detail-container').append(`
+                                <h2 id="test">Post Details:</h2>
+                                    <p>
+                                        Title: ${data.title}
+                                    </p>
+                            `);
+                            let bodyCont = htmlDecode(data.content);
+                            console.log(bodyCont)
+                            $('.detail-container').append(bodyCont);
+                        } else {
+                            $('.detail-container').append(`
+                                <h2>Post Not Found</h2>
+                            `);
+                        }
+                    }
+                });
+            })
+        </script>
+
+    </body>
+</html>

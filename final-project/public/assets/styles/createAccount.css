@@ -1,0 +1,51 @@
+*{
+    background-color: greenyellow;
+    font-family: "Raleway";
+}
+
+.super-holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: greenyellow;
+    height: 100vh;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    width: 400px;
+    height: 370px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+#create, p, input, div{
+    text-decoration: none;
+    background-color: white;
+}
+
+.topMsg{
+    font-size: 22px;
+}
+
+input{
+    height: 50px;
+    width: 250px;
+    font-size: 20px;
+}
+
+button{
+    width: 250px;
+    height: 50px;
+    font-weight: 400;
+    color: black;
+    font-size: 20px;
+}
+
+button:hover{
+    cursor: pointer;
+}
