@@ -1,0 +1,49 @@
+*{
+    font-family: "Poppins";
+}
+#main-container{
+    display: flex;
+    flex-direction: column;
+}
+#post-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 34px;
+}
+#post-details{
+    margin-left: 380px;
+    font-weight: 650;
+}
+#post-details p{
+    margin-bottom: 10px;
+    margin-top: 2px;
+    height: fit-content;
+}
+#post-content{
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    text-align: justify;
+}
+
+#home{
+width: 100px;
+}
+form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    background-color: rgb(18, 62, 134);
+    color: white;
+    border-radius: 3px;
+}
+
+button:hover{
+    cursor: pointer;
+}

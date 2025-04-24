@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>UPDATE THIS DYNAMICALLY</title>
+        <title>Search Results</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Tangerine:wght@400;700&display=swap" rel="stylesheet">
-        <link href="/assets/styles/postView.css" type="text/css" rel="stylesheet" />
+        <link href="/assets/styles/search-view.css" type="text/css" rel="stylesheet" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     </head>
@@ -21,46 +21,42 @@
             </form>
         </div>
         <div id="main-container">
-            <div id="post-title">
+            <div id="search-title">
             </div>
-            <div id="post-details">
-            </div>
-            <div id="post-content">
+            <div id="search-posts">   
             </div>
         </div>
-
         <script>
-            $(document).ready(function(){
+            $(document).ready(function (){
                 const urlArray = window.location.pathname.split("/");
-                console.log(urlArray);
-                const id = urlArray[2];
-                function htmlDecode(input) {
-                    var doc = new DOMParser().parseFromString(input, "text/html");
-                    return doc.documentElement.textContent;
-                }
+                const title = urlArray[2];
+                const myData = {title};
                 $.ajax({
-                    url: `http://localhost/posts/${id}`,
+                    url: `http://localhost/api/posts/${title}`,
                     type: "GET",
                     dataType: "json",
-                    success: function (data) {
-                        if (data) {
-                            $('#post-title').append(`
-                                ${data.title}
-                            `);
+                    success: function(data){
+                        console.log(data);
+                        $('#search-title').append(`
+                            Searched: "${title}"
+                            <p id="showing-results"> Showing Results: ${data.length} post(s) </p>
+                        `);
 
-                            $('#post-details').append(`
-                                <p>By John Doe</p>
-                                <p>Posted on: ${data.date}
+                        $.each(data, function(key, value){
+                            $("#search-posts").append(`
+                            <div class="regular-post" id="${value['id']}"}">
+                                <div class="search-post-title">
+                                    ${value['title']}
+                                </div>
+                                <div class="search-post-description">
+                                    ${value['description']}
+                                </div>
+                                <div class="search-post-details">
+                                    ${value['date']} · JOHN DOE
+                                </div>
+                            </div>
                             `);
-
-                            let bodyCont = htmlDecode(data.content);
-                            bodyCont = htmlDecode(bodyCont);
-                            $('#post-content').append(bodyCont);
-                        } else {
-                            $('.detail-container').append(`
-                                <h2>Post Not Found</h2>
-                            `);
-                        }
+                        });
                     },
                     error: function(xhr, status, error) {
                         console.log("Error occurred:");
@@ -71,12 +67,16 @@
                 });
             })
 
+            $(document).on('click', '.regular-post', function(){
+                let postID = $(this).attr('id');
+                let myUrl = "http://localhost/viewPost/" + postID;
+                window.location.href = myUrl;
+            });
+
             $("#to-home").on('submit', function(e){
                 e.preventDefault();
                 window.location.href = "http://localhost/";
             })
-
         </script>
-
     </body>
 </html>

@@ -1,0 +1,84 @@
+*{
+    font-family: "Poppins";
+}
+
+#home{
+    width: 100px;
+}
+form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    background-color: rgb(18, 62, 134);
+    color: white;
+    border-radius: 3px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+#see-all-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 35px;
+    padding: 0px;
+    border-bottom: 1px rgb(96, 91, 91) solid;
+    margin-left: 150px;
+    width: 300px;
+}
+
+#showing-results{
+    margin-top: 0px;
+    padding: 0px;
+    font-size: 30px;
+    color: gray;
+}
+
+#see-all-posts{
+    display: flex;
+    flex-direction: column;
+    width: 100v;
+    /* margin-left: 230px; */
+    align-items: center;
+    
+}
+
+.regular-post{
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    height: fit-content;
+    /* max-height: 250px; */
+    border-bottom: thin solid grey;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    padding-bottom: 5px;
+}
+
+.regular-post:hover{
+    cursor: pointer;
+}
+
+.see-all-post-title{
+    font-weight: 650;
+    font-size: 20px;
+}
+
+.see-all-post-description{
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 250;
+}
+
+.see-all-post-details{
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    margin-top: 20px;
+}

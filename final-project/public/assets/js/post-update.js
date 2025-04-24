@@ -17,7 +17,6 @@ $.ajax({
     }
 });
 
-
 const {
 	ClassicEditor,
 	Autoformat,
@@ -62,7 +61,7 @@ const {
 	Underline
 } = window.CKEDITOR;
 
-// const LICENSE_KEY = KEY;
+// const LICENSE_KEY = $env['WYSIWYG'];
 
 const editorConfig = {
 	toolbar: {
@@ -235,37 +234,67 @@ ClassicEditor.create(document.querySelector('#editor'), editorConfig).then( newE
     console.error( error );
 } );
 
-console.log("test")
 
-$("#myForm").on('submit', function(e){
-    e.preventDefault();
-    const editorContent = editor.getData();
-	const title = $('#title').val();
-	let description = editorContent.substr(0, 80);
-	description = description + "...";
-	let myData = {
-		editorContent, 
-		description,
-		title
-	};
-
+$(document).ready(function(){
+    let urlArray = window.location.pathname.split("/");
+	console.log(urlArray);
+	let id = urlArray[2];
+    function htmlDecode(input) {
+        var doc = new DOMParser().parseFromString(input, "text/html");
+        return doc.documentElement.textContent;
+    }
     $.ajax({
-        url: `http://localhost/posts`,
-        type: "POST",
+        url: `http://localhost/posts/${id}`,
+        type: "GET",
         dataType: "json",
-        data: myData,
         success: function(data){
-			console.log(data);
-			let urlID = data[0]['id'];
-			let relURL = "/viewPost/" + urlID;
-			window.location.href = relURL;
+            console.log(data);
+            $('#title').val(data.title);
+            if (editor) {
+                let bodyCont = htmlDecode(data.content);
+                let realBodyCont = htmlDecode(bodyCont);
+                editor.setData(realBodyCont);
+            } else {
+                console.error("Editor not initialized yet");
+            }
         },
-		error: function(xhr, status, error) {
-			console.log("Error occurred:");
-			console.log("Status: " + status);
-			console.log("Error: " + error);
-			console.log(xhr.responseText);
-		}
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+        }
     });
-});
+    $("#myForm").on('submit', function(e){
+        e.preventDefault();
+        const editorContent = editor.getData();
+        const title = $('#title').val();
+        let description = editorContent.substr(0, 80);
+        description = description + "...";
+        let myData = {
+            editorContent, 
+            description,
+            title
+        };
+		console.log("testing form");
+        $.ajax({
+            url: `http://localhost/posts/${id}`,
+            type: "PUT",
+            dataType: "json",
+            data: myData,
+            success: function(data){
+                console.log("succesful PUT");
+				console.log(data);
+                let urlID = data.id;
+                let relURL = "/viewPost/" + urlID;
+				window.location.href = relURL;
+            },
+            error: function(xhr, status, errorThrown) {
+                console.error("AJAX Error Details:");
+                console.error("Status:", status);
+                console.error("Error:", errorThrown);
+                console.error("Response Text:", xhr.responseText);
+                console.error("Status Code:", xhr.status);
+                alert("Update failed. See console for details.")
+            }
+        });
+    });
+})
 

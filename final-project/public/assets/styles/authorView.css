@@ -1,0 +1,124 @@
+*{
+    font-family: "Poppins";
+}
+
+#top-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 30.8px;
+    font-size: 14px;
+}
+
+button{
+    background-color: rgb(18, 62, 134);
+    color: white;
+    border-radius: 3px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+#add-post{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    color: white;
+    width: 100px;
+    height: 35px;
+    background-color: rgb(27, 67, 154);
+    margin-right: 20px;
+    border-radius: 5px;
+    font-weight: 300;
+}
+
+#add-post:hover{
+    cursor: pointer;
+}
+
+#add-post a{
+    color: white;
+    text-decoration: none;
+}
+
+#main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+table{
+    margin-left: 100px;
+    margin-right: 90px;
+}
+
+th{
+    text-align: left;
+}
+.title{
+    width: 500px;
+    padding-left: 10px;
+}
+
+tr{
+    height: 50px;
+}
+
+.date{
+    padding-left: 10px;
+}
+.action{
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    align-items: center;
+    height: 50px;
+}
+
+.action a{
+    margin-right: 10px;
+}
+
+tbody tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+thead tr{
+    background-color: #f2f2f2;
+}
+
+.edit-button{
+    margin-right: 20px;
+}
+
+.actual-delete, .delete-btn{
+    background-color: red !important;
+}
+
+#log-out{
+    margin-left: 92%;
+    margin-top: 100px;
+    font-size: 17px;
+}
+
+#logout-button{
+    background-color: rgb(255, 166, 0);
+    color: black;
+    border-radius: 5px;
+    width: 200px;
+    height: 35px;
+}

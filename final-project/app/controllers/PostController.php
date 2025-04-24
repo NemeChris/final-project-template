@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 use app\models\Post;
+use DateTime;
+use DateInterval;
 
-//this is an example controller class, feel free to delete
 class PostController extends Controller {
     public function validatePost($inputData) {
         $errors = [];
@@ -58,30 +59,105 @@ class PostController extends Controller {
             'content' => $_POST['editorContent'] ?: null,
             'description' => $_POST['description'] ?: null
         ];
+
         $postData = $this->validatePost($inputData);
 
+        $now = new DateTime();
+        $formattedCurrentTime = $now->format('m-d-Y');
         $post = new Post();
         $post->savePost(
             [
                 'title' => $postData['title'],
                 'content' => $postData['content'],
-                'description' => $postData['description']
+                'description' => $postData['description'],
+                'date' => $formattedCurrentTime
             ]
         );
-        //add the getPost here 
-        //return the id
-        $postInfo = $this->getPost($postData['title']);
+
+        $postInfo = $this->getPostByTitle($postData['title']);
         http_response_code(200);
         echo json_encode($postInfo);
         
-        //header('Location: ./assets/views/posts/postView.html');
         exit();
     }
 
-    public function getPost($data = '') {
+    public function updatePost($id){
+        if(!$id){
+            http_response_code(404);
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Post ID not provided']);
+            exit();
+        }
+
+        parse_str(file_get_contents('php://input'), $_PUT);
+        if (empty($_PUT)) {
+            http_response_code(400);
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Invalid or missing input']);
+            exit();
+        }
+        header("Content-Type: application/json");
+        $inputData = [
+            'title' => $_PUT['title'] ?: null,
+            'content' => $_PUT['editorContent'] ?: null,
+            'description' => $_PUT['description'] ?: null
+        ];
+        $postData = $this->validatePost($inputData);
+        $now = new DateTime();
+        $formattedCurrentTime = $now->format('m-d-Y');
+        $post = new Post();
+        $post->updatePost(
+            [
+                'id' => $id,
+                'title' => $postData['title'],
+                'content' => $postData['content'],
+                'description' => $postData['description'],
+                'date' => $formattedCurrentTime
+            ]
+        );
+        http_response_code(200);
+        $postInfo = $this->getPostByID($id);
+        if (!$postInfo) {
+            http_response_code(500);
+            header("Content-Type: application/json");
+            echo json_encode(['error' => 'Post retrieval failed']);
+            exit();
+        }
+        echo json_encode([
+            'success' => true
+        ]);
+        exit();
+    }
+
+    public function deletePost($id){
+        if(!$id){
+            http_response_code(404);
+            exit();
+        }
+
+        $post = new Post();
+        $post->deletePost([
+            'id' => $id
+        ]);
+
+        http_response_code(200);
+        echo json_encode([
+            'success' => true
+        ]);
+
+        exit();
+    }
+
+    public function getPosts() {
+        $postModel = new Post();
+        $posts = $postModel->getAllPosts();
+        $this->returnJSON($posts);
+    }
+
+    public function getPostByTitle($data = '') {
         $postModel = new Post();
         $query = !empty($data) ? $data : null;
-        $post = $postModel->getPost($query);
+        $post = $postModel->getPostByTitle($query);
         echo json_encode($post);
         exit();
     }

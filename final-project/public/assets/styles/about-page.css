@@ -5,7 +5,7 @@
 .head {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 75px;
     margin: 5px;
@@ -44,8 +44,6 @@
     height: 36px;
     font-size: 17px;
     font-weight: 800;
-    /* margin-left: 0px;
-    margin-right: 50px; */
     padding: 3px;
 }
 
@@ -56,7 +54,6 @@
 
 a#about-link, a#home-link{
     display: inline-block;
-    /* border-bottom: 5px black solid; */
     height: 34px; 
     width: 60px;
 }
@@ -66,9 +63,9 @@ a:hover{
     color: black !important;
 }
 
-#home-link:after {
+#about-link:after {
     content: ""; 
-    display: block; 
+    display: block;
     margin: 0 auto; 
     width: 75%; 
     padding-top: 6px; 
@@ -80,19 +77,17 @@ a:hover{
     background-color: #f5f5f5 ;
 }
 
-
-  
 .blog-title {
     text-align: center;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
-  
+
 .blog-title:hover{
     cursor: pointer;
 }
-
+  
 .blog-title h1 {
     margin: 0;
 }
@@ -103,7 +98,7 @@ a:hover{
     top: 50%;
     transform: translateY(-50%);
 }
-  
+
 .search-form .form-group {
     transition: all 0.35s, border-radius 0s;
     width: 32px;
@@ -113,7 +108,7 @@ a:hover{
     border-radius: 25px;
     border: 1px solid #ccc;
 }
-  
+
 .search-form .form-group input.form-control {
     padding-right: 20px;
     border: 0 none;
@@ -121,25 +116,25 @@ a:hover{
     box-shadow: none;
     display: block;
 }
-  
+
 .search-form .form-group input.form-control::-webkit-input-placeholder {
     display: none;
 }
-  
+
 .search-form .form-group input.form-control:-moz-placeholder,
-  .search-form .form-group input.form-control::-moz-placeholder,
-  .search-form .form-group input.form-control:-ms-input-placeholder {
+.search-form .form-group input.form-control::-moz-placeholder,
+.search-form .form-group input.form-control:-ms-input-placeholder {
     display: none;
 }
-  
+
 .search-form .form-group:hover,
-  .search-form .form-group.hover {
+.search-form .form-group.hover {
     width: 200px;
     border-radius: 4px 25px 25px 4px;
 }
-  
+
 .search-form .form-group span.form-control-feedback {
-    position: absolute;
+position: absolute;
     top: -1px;
     right: -2px;
     z-index: 2;
@@ -153,108 +148,38 @@ a:hover{
     font-size: 14px;
 }
 
+.search-container {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
-#top-container{
+
+#top-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+#about-container{
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-#top-post{
+#about-content{
     display: flex;
     flex-direction: column;
-    max-height: 250px;
-    justify-content: center;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    border-bottom: thin solid grey;
-    margin-bottom: 20px;
-}
-
-#top-post:hover{
-    cursor: pointer;
-}
-
-#top-post-title{
-    display: flex;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 30px;
-    max-width: 500px;
-}
-
-#top-post-description{
-    display: flex;
-    justify-content: center;
-    font-style: italic;
-    font-weight: 200;
-    font-size: 15px;
-    max-width: 500px;
-}
-
-#top-post-details{
-    font-size: 14px;
-    font-style: normal;
+    align-items: center;
+    width: 800px;
+    font-size: 17px;
     font-weight: 400;
+}
+
+#about-container p{
     margin-top: 20px;
-}
-
-#line-below-top{
-    width: 50%;
-}
-
-#homepage-posts{
-    display: flex;
-    flex-direction: column;
-    width: 700px;
-    margin-left: 230px;
-    
-}
-
-.regular-post{
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    height: fit-content;
-    /* max-height: 250px; */
-    border-bottom: thin solid grey;
-    padding-top: 10px;
-    padding-bottom: 50px;
-    padding-bottom: 5px;
-}
-
-.regular-post:hover{
-    cursor: pointer;
-}
-
-.homepage-post-title{
-    font-weight: 650;
-    font-size: 20px;
-}
-
-.homepage-post-description{
-    font-size: 16px;
-    font-style: italic;
-    font-weight: 250;
-}
-
-.homepage-post-details{
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    margin-top: 20px;
-}
-
-#See-All{
-    background-color: rgb(242, 242, 238);
-    border-radius: 4px;
-    width: 100px;
-    height: 40px;
-    margin-left: 230px;
-    font-weight: 600;
-    margin-top: 30px;
-}
-
-#See-All:hover{
-    cursor: pointer;
 }

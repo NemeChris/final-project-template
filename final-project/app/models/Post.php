@@ -2,21 +2,30 @@
 
 namespace app\models;
 
-//this is an example model class, feel free to delete
 class Post extends Model {
 
-    protected $table = 'users';
+    protected $table = "blog-posts";
 
-    public function getAllUsers() {
+    public function getAllPosts() {
         return $this->findAll();
     }
 
     public function savePost($inputData){
-        $query = "insert into `blog-posts` (title, content, description) values (:title, :content, :description);";
+        $query = "insert into `blog-posts` (title, content, description, date) values (:title, :content, :description, :date);";
         return $this->query($query, $inputData);
     }
 
-    public function getPost($title) {
+    public function updatePost($inputData){
+        $query = "update `blog-posts` set title = :title, content = :content, description = :description, date = :date where id = :id;";
+        return $this->query($query, $inputData);
+    }
+
+    public function deletePost($inputData){
+        $query = "delete from `blog-posts` where id = :id";
+        return $this->query($query, $inputData);
+    }
+
+    public function getPostByTitle($title) {
         if ($title) {
             $query = "select * from `blog-posts` WHERE title like :title";
             return $this->fetchAllWithParams($query, ['title' => '%' . $title . '%']);
@@ -24,7 +33,7 @@ class Post extends Model {
     }
 
     public function getRecentPosts() {
-        $query = "select * from `blog-posts` order by id desc limit 3;";
+        $query = "select * from `blog-posts` order by id desc limit 4;";
         return $this->fetchAllWithParams($query);
     }
 
